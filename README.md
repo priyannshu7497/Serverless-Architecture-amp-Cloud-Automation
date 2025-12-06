@@ -303,7 +303,7 @@ Project-Repo/
 
 Create Function
 
-(<img src="https://raw.githubusercontent.com/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/1%20creaatet%20function.png" width="600">)
+(<img src="https://raw.githubusercontent.com/priyannshu7497/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/1%20creaatet%20function.png" width="600">)
 https://github.com/priyannshu7497/Serverless-Architecture-amp-Cloud-Automation/blob//1.Create%20Lambda%20Function%20%2B%20CloudWatch%20Schedule%20%2B%20CloudWatch%20Alarm/screenshot/lambda%20function%20test%20alarm.png
 
 Event Bridge
