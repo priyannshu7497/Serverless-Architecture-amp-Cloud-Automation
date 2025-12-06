@@ -20,7 +20,7 @@ This repository contains detailed documentation and artifacts for three complete
 3. **Local Dockerizing of the MERN Application**
 
 > **Author:** Priyanshu Gupta — Amity University  
-> **Contact:** (add your email or GitHub link here)
+> **Contact:** (gpriyannshu@gmail.com)
 
 ---
 
@@ -298,13 +298,23 @@ Project-Repo/
 │  └─ local_run.png
 ├─ docker-compose.yml
 └─ README.md
-
+```
 🖼️ Screenshots & Evidence
+Create Function
+(<img src="https://raw.githubusercontent.com/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/1%20creaatet%20function.png" width="600">)
 
-Place your screenshots in screenshots/ and reference them in the README like:
+Event Bridge
+(<img src="https://raw.githubusercontent.com/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/lambda%20function%202.png" width="600">)
+
+(<img src="https://raw.githubusercontent.com/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/lambda%20function%203.png" width="600">)
+
+Set Alarm with Lamda Function
+
+(<img src="https://raw.githubusercontent.com/Serverless-Architecture-amp-Cloud-Automation/main/1.Create%20Lambda%20Function%20+%20CloudWatch%20Schedule%20+%20CloudWatch%20Alarm/screenshot/lambda%20function%20test%20alarm.png" width="600">)
 
 ![Lambda function screenshot](screenshots/lambda_function.png)
 
+```
 Refer to the placeholders already used above for image names.
 🧾 How to Reproduce (quick)
 
@@ -327,5 +337,4 @@ Refer to the placeholders already used above for image names.
 🧑‍💻 Author
 
 Priyanshu Gupta
-B.Tech CSE — Amity University
 Cloud / DevOps / MERN / AWS / Docker
