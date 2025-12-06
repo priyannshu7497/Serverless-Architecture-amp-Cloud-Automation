@@ -1,100 +1,109 @@
-📚 Table of Contents
-#	Assignment	Status
+📌 Assignment Status
+#	Assignment Name	Status
 1	AWS Lambda + CloudWatch Schedule + Alarm	🟢 Completed
-2	Dockerize MERN & Deploy using Docker Compose on EC2	🟢 Completed
+2	Dockerized MERN + Docker Compose Deployment on EC2	🟢 Completed
 3	Local Dockerization of MERN Application	🟢 Completed
 ✅ Assignment 1: AWS Lambda + CloudWatch Schedule + Alarm
 🎯 Objective
 
-Create a scheduled Lambda execution pipeline with monitoring and alerts.
+Create a scheduled AWS Lambda function with automated logging and monitoring alerts.
 
-🛠 AWS Services Used
+🔧 AWS Services Used
 Service	Purpose
-Lambda	Execute serverless function
-EventBridge	Schedule execution
-CloudWatch Logs	Store logs
-CloudWatch Alarm	Alert on failures
-IAM	Assign permissions
-📌 Steps
-📍 Step 1: Lambda Function Code
+AWS Lambda	Execute serverless code
+EventBridge Rule	Scheduler (Cron trigger)
+CloudWatch Logs	Store Lambda logs
+CloudWatch Alarm	Error alert monitoring
+IAM Role	Permissions for execution
+📌 Implementation Steps
+📝 Step 1 — Create Lambda Function
+
+Runtime: Python 3.9
+
 def lambda_handler(event, context):
     print("Lambda Triggered Successfully!")
     return {"status": "Success"}
 
 
-📎 Screenshot → screenshots/lambda_function.png
+📎 Screenshot: screenshots/lambda_function.png
 
-📍 Step 2: IAM Role
+🔐 Step 2 — IAM Role Assigned
 
-Permissions:
-✔ AWSLambdaBasicExecutionRole
+Role Used: AWSLambdaBasicExecutionRole
 
-📎 screenshots/iam_role.png
+📎 Screenshot: screenshots/iam_role.png
 
-📍 Step 3: EventBridge Rule
+⏱ Step 3 — Schedule EventBridge Trigger
 
-⏱ Rate: 5 minutes
+Frequency: Every 5 minutes
 
-📎 Screenshot → screenshots/eventbridge_rule.png
+📎 Screenshot: screenshots/eventbridge_rule.png
 
-📍 Step 4: Logs Verification
+📊 Step 4 — Monitor Logs
 
-📎 Screenshot → screenshots/cloudwatch_logs.png
+Logs verified in:
+➡️ CloudWatch → Log Groups → /aws/lambda/<function-name>
 
-📍 Step 5: CloudWatch Alarm
+📎 Screenshot: screenshots/cloudwatch_logs.png
+
+🚨 Step 5 — Setup CloudWatch Alarm
 
 Metric: Errors > 0
 
-📎 Screenshot → screenshots/alarm.png
+📎 Screenshot: screenshots/alarm.png
 
 🧠 Architecture Diagram
-EventBridge (Cron)
-        |
-        v
-   AWS Lambda
-        |
-        v
-CloudWatch Logs --> CloudWatch Metrics --> Alarm --> SNS (Optional)
+ EventBridge (Cron Trigger)
+            ↓
+        AWS Lambda
+            ↓
+     CloudWatch Logs
+            ↓
+     CloudWatch Metrics
+            ↓
+     Alarm → (SNS Optional)
 
-🎉 Output
+🎉 Result
 
-✔ Automatic execution every 5 minutes
+✔ Lambda runs automatically every 5 minutes
+✔ Alerts set if Lambda fails
 ✔ Logging + monitoring enabled
 
-🐳 Assignment 2: Deploy MERN Stack using Docker Compose on EC2
-🎯 Goal
+🐳 Assignment 2: Deploy Dockerized MERN Stack Using Docker Compose on EC2
+🎯 Objective
 
-Deploy a microservices-based MERN stack with Docker containers inside AWS EC2.
+Containerize and deploy a microservices-based MERN project on AWS EC2 using Docker Compose.
 
-⚙️ Tech Stack
-Component	Technology
-Compute	EC2 Ubuntu
-Orchestration	Docker Compose
-Backend	Node.js + Express
+⚙️ Components
+Service	Technology
 Frontend	React
+Backend APIs	Node.js
 Database	MongoDB
-📌 Deployment Steps
-📍 Step 1: EC2 Setup
+Deployment	Docker & Docker Compose
+Hosting	AWS EC2 (Ubuntu 22.04)
+📌 Steps Executed
+1️⃣ Launch EC2 Instance
 
-Open Ports: 22, 3000, 5000-5002, 27017
+Allowed ports:
+22, 3000, 5000–5002, 27017
 
-📎 Screenshot → screenshots/ec2_instance.png
+📎 Screenshot: screenshots/ec2_instance.png
 
-📍 Step 2: Install Docker
+2️⃣ Install Docker
 sudo apt update
 sudo apt install docker.io -y
 sudo systemctl enable --now docker
 
-📍 Step 3: Install Docker Compose
+3️⃣ Install Docker Compose
 sudo apt install docker-compose -y
 
-📍 Step 4: Clone Repository
-git clone https://github.com/<your-fork>/SampleMERNwithMicroservices
+4️⃣ Clone Project
+git clone https://github.com/<forked-repo>/SampleMERNwithMicroservices
 cd SampleMERNwithMicroservices
 
-📍 Step 5: Add Dockerfiles
+5️⃣ Add Dockerfiles
 
-📍 Backend & Profile:
+Backend Example:
 
 FROM node:18
 WORKDIR /app
@@ -105,17 +114,9 @@ EXPOSE 5000
 CMD ["npm", "start"]
 
 
-📍 Frontend:
+Frontend Example similar but exposes 3000.
 
-FROM node:18
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-
-📍 Step 6: docker-compose.yml
+6️⃣ Create docker-compose.yml
 version: "3.9"
 
 services:
@@ -128,62 +129,58 @@ services:
     build: ./backend/helloService
     ports:
       - "5001:5000"
-    depends_on:
-      - mongo
 
   profile-service:
     build: ./backend/profileService
     ports:
       - "5002:5000"
-    depends_on:
-      - mongo
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-    depends_on:
-      - hello-service
-      - profile-service
 
-📍 Step 7: Build + Run
+7️⃣ Build & Run Containers
 sudo docker-compose build
 sudo docker-compose up -d
 
 
-📎 Screenshot → screenshots/containers_running.png
+📎 Screenshot: screenshots/containers_running.png
 
 🧠 Architecture Diagram
- ┌────────────────────────────────┐
- |           AWS EC2              |
- |--------------------------------|
- | MongoDB | Backend APIs | Frontend |
- | (Docker Containers via Compose) |
- └────────────────────────────────┘
+      ┌─────────────────────────────┐
+      │         AWS EC2             │
+      │ ┌──────────┐ ┌───────────┐ │
+      │ │ Frontend │ │ Backends   │ │
+      │ └──────────┘ └───────────┘ │
+      │         ┌───────────┐      │
+      │         │ MongoDB   │      │
+      │         └───────────┘      │
+      └─────────────────────────────┘
 
-🎉 Output
+🎉 Result
 
-🚀 App accessible at:
+✔ MERN app successfully deployed and running at:
 
-http://EC2_PUBLIC_IP:3000
+👉 http://EC2_PUBLIC_IP:3000
 
-🧪 Assignment 3: Local Docker Testing
-📍 Build Image
-docker build -t mern-app .
+🧪 Assignment 3: Local Dockerization of MERN App
+Step	Command
+Build Image	docker build -t mern-app .
+Run Container	docker run -p 3000:3000 mern-app
 
-📍 Run Container
-docker run -p 3000:3000 mern-app
+📎 Screenshot: screenshots/local_run.png
 
+📁 Folder Reference Structure
+📦 Project
+ ┣ 📁 screenshots
+ ┣ 📄 README.md
+ ┣ 📁 backend
+ ┣ 📁 frontend
+ ┣ 📄 docker-compose.yml
 
-📎 Screenshot → screenshots/local_run.png
-
-🏁 Summary Table
-Assignment	Status	Result
-Lambda Automation	✔ Done	Working & monitored
-Docker Compose Deployment	✔ Done	Running on EC2
-Local Docker Test	✔ Done	Verified successfully
 👨‍💻 Author
 
-📌 Priyanshu Gupta
-🎓 Amity University
-💼 Cloud | DevOps | AWS | Docker | MERN | CI/CD
+Priyanshu Gupta
+AMITY University
+DevOps | AWS | Docker | Cloud Engineer
